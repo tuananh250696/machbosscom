@@ -92,7 +92,7 @@ void Task1code( void * pvParameters ){
       Serial.print("goc=");
       Serial.print( tilt);
       Serial.println();
-      delay(200);
+      delay(400);
      
   }
 
@@ -103,7 +103,7 @@ void Task2code( void * pvParameters ){
 EEPROM.begin(512);
 
   for(;;){
-  if(digitalRead(34)==1&&H<33)
+  if(digitalRead(35)==1&&H<=29)
        {
         i=1;
          digitalWrite(26,0); 
@@ -121,7 +121,7 @@ EEPROM.begin(512);
         }
         
   //down xl1
-    if(digitalRead(35)==1&&H>12 )
+    if(digitalRead(34)==1&&H>=4 )
         {
           i=1;
           digitalWrite(26,0); 
@@ -137,7 +137,7 @@ EEPROM.begin(512);
 
         }
   //up xl2
-    if(digitalRead(36)==1 &&  tilt<66 )
+    if(digitalRead(36)==1 &&  tilt<=66 )
         {
           i=1;
          digitalWrite(26, HIGH); 
@@ -154,43 +154,9 @@ EEPROM.begin(512);
  
    
         }
-    // down xl2
-  if(digitalRead(39)==1 &&  tilt>(-18) )
-       {
-        i=1;
-         digitalWrite(26, HIGH); 
-         digitalWrite(32, 0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-         
-         delay(150); 
-         digitalWrite(26, 0); 
-         digitalWrite(32, 0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-       }
 
- if(digitalRead(34)==1&&H>=33)
-       {
-        i=1;
-     digitalWrite(26, 0); 
-         digitalWrite(32,0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-          digitalWrite(27,1);
-         
-         delay(150); 
-         digitalWrite(26, 0); 
-         digitalWrite(32, 0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-         digitalWrite(27,0);
-           
-
-        }
-        
-  //down xl1
-    if(digitalRead(35)==1&&H<=12 )
+       //up xl2
+    if(digitalRead(36)==1 &&  tilt>66 )
         {
           i=1;
          digitalWrite(26, 0); 
@@ -199,25 +165,7 @@ EEPROM.begin(512);
          digitalWrite(33,0);
           digitalWrite(27,1);
          
-         delay(150); 
-         digitalWrite(26, 0); 
-         digitalWrite(32, 0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-         digitalWrite(27,0);
-
-        }
-  //up xl2
-    if(digitalRead(36)==1 &&  tilt>=66 )
-        {
-          i=1;
-         digitalWrite(26, 0); 
-         digitalWrite(32,0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-          digitalWrite(27,1);
-         
-         delay(150); 
+         delay(200); 
          digitalWrite(26, 0); 
          digitalWrite(32, 0); 
          digitalWrite(25,0); 
@@ -227,7 +175,61 @@ EEPROM.begin(512);
    
         }
     // down xl2
-  if(digitalRead(39)==1 &&  tilt<=(-18) )
+  if(digitalRead(39)==1 &&  tilt>=(-7) )
+       {
+        i=1;
+         digitalWrite(26, HIGH); 
+         digitalWrite(32, 0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+         
+         delay(200); 
+         digitalWrite(26, 0); 
+         digitalWrite(32, 0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+       }
+
+ if(digitalRead(34)==1&&H<4)
+       {
+        i=1;
+     digitalWrite(26, 0); 
+         digitalWrite(32,0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+          digitalWrite(27,1);
+         
+         delay(200); 
+         digitalWrite(26, 0); 
+         digitalWrite(32, 0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+         digitalWrite(27,0);
+           
+
+        }
+        
+  //down xl1
+    if(digitalRead(35)==1&&H>29 )
+        {
+          i=1;
+         digitalWrite(26, 0); 
+         digitalWrite(32,0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+          digitalWrite(27,1);
+         
+         delay(200); 
+         digitalWrite(26, 0); 
+         digitalWrite(32, 0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+         digitalWrite(27,0);
+
+        }
+ 
+    // down xl2
+  if(digitalRead(39)==1 &&  tilt<(-7) )
        {
         i=1;
          digitalWrite(26, 0); 
@@ -236,7 +238,7 @@ EEPROM.begin(512);
          digitalWrite(33,0);
           digitalWrite(27,1);
          
-         delay(150); 
+         delay(200); 
          digitalWrite(26, 0); 
          digitalWrite(32, 0); 
          digitalWrite(25,0); 
@@ -244,14 +246,14 @@ EEPROM.begin(512);
          digitalWrite(27,0);
        }
 
-  if(digitalRead(23)==1&&H<33)
+  if(digitalRead(14)==1&&H<=29)
        {
         i=1;
          digitalWrite(26,0); 
          digitalWrite(32,0); 
          digitalWrite(25,1); 
          digitalWrite(33,1);
-         delay(150);  
+         delay(200);  
          digitalWrite(26, 0); 
          digitalWrite(32, 0); 
          digitalWrite(25,0); 
@@ -260,9 +262,26 @@ EEPROM.begin(512);
            
 
         }
-        
+       if(digitalRead(14)==1&&H>29)
+       {
+        i=1;
+     digitalWrite(26, 0); 
+         digitalWrite(32,0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+          digitalWrite(27,1);
+         
+         delay(200); 
+         digitalWrite(26, 0); 
+         digitalWrite(32, 0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+         digitalWrite(27,0);
+           
+
+        }
   //down xl1
-    if(digitalRead(14)==1&&H>12 )
+    if(digitalRead(23)==1&&H>=4 )
         {
           i=1;
           digitalWrite(26,0); 
@@ -270,15 +289,33 @@ EEPROM.begin(512);
           digitalWrite(25,1); 
          digitalWrite(33,0);
             
-          delay(150);  
+          delay(200);  
          digitalWrite(26, 0); 
          digitalWrite(32, 0); 
          digitalWrite(25,0); 
          digitalWrite(33,0);
 
         }
+         //down xl1
+    if(digitalRead(23)==1&&H<4 )
+        {
+          i=1;
+         digitalWrite(26, 0); 
+         digitalWrite(32,0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+          digitalWrite(27,1);
+         
+         delay(200); 
+         digitalWrite(26, 0); 
+         digitalWrite(32, 0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+         digitalWrite(27,0);
+
+        }
   //up xl2
-    if(digitalRead(2)==1 &&  tilt<66 )
+    if(digitalRead(15)==1 &&  tilt<=66 )
         {
           i=1;
          digitalWrite(26, HIGH); 
@@ -286,7 +323,7 @@ EEPROM.begin(512);
          digitalWrite(25,0); 
          digitalWrite(33,0);
             
-         delay(150); 
+         delay(200); 
          
          digitalWrite(26, 0); 
          digitalWrite(32, 0); 
@@ -295,8 +332,28 @@ EEPROM.begin(512);
  
    
         }
+
+       //up xl2
+    if(digitalRead(15)==1 &&  tilt>66 )
+        {
+          i=1;
+         digitalWrite(26, 0); 
+         digitalWrite(32,0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+          digitalWrite(27,1);
+         
+         delay(200); 
+         digitalWrite(26, 0); 
+         digitalWrite(32, 0); 
+         digitalWrite(25,0); 
+         digitalWrite(33,0);
+         digitalWrite(27,0);
+ 
+   
+        }
     // down xl2
-  if(digitalRead(15)==1 &&  tilt>(-18) )
+  if(digitalRead(2)==1 &&  tilt>=(-7) )
        {
         i=1;
          digitalWrite(26, HIGH); 
@@ -304,34 +361,14 @@ EEPROM.begin(512);
          digitalWrite(25,0); 
          digitalWrite(33,0);
          
-         delay(150); 
+         delay(200); 
          digitalWrite(26, 0); 
          digitalWrite(32, 0); 
          digitalWrite(25,0); 
          digitalWrite(33,0);
        }
 
- if(digitalRead(23)==1&&H>=33)
-       {
-        i=1;
-     digitalWrite(26, 0); 
-         digitalWrite(32,0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-          digitalWrite(27,1);
-         
-         delay(150); 
-         digitalWrite(26, 0); 
-         digitalWrite(32, 0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-         digitalWrite(27,0);
-           
-
-        }
-        
-  //down xl1
-    if(digitalRead(14)==1&&H<=12 )
+       if(digitalRead(2)==1 &&  tilt<(-7) )
         {
           i=1;
          digitalWrite(26, 0); 
@@ -340,25 +377,7 @@ EEPROM.begin(512);
          digitalWrite(33,0);
           digitalWrite(27,1);
          
-         delay(150); 
-         digitalWrite(26, 0); 
-         digitalWrite(32, 0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-         digitalWrite(27,0);
-
-        }
-  //up xl2
-    if(digitalRead(15)==1 &&  tilt>=66 )
-        {
-          i=1;
-         digitalWrite(26, 0); 
-         digitalWrite(32,0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-          digitalWrite(27,1);
-         
-         delay(150); 
+         delay(200); 
          digitalWrite(26, 0); 
          digitalWrite(32, 0); 
          digitalWrite(25,0); 
@@ -368,43 +387,34 @@ EEPROM.begin(512);
    
         }
     // down xl2
-  if(digitalRead(2)==1 &&  tilt<=(-18) )
-       {
-        i=1;
-         digitalWrite(26, 0); 
-         digitalWrite(32,0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-          digitalWrite(27,1);
-         
-         delay(150); 
-         digitalWrite(26, 0); 
-         digitalWrite(32, 0); 
-         digitalWrite(25,0); 
-         digitalWrite(33,0);
-         digitalWrite(27,0);
-       }
 
- if(digitalRead(16)==1)
+
+        
+
+  //up xl2
+  
+ 
+
+ if(digitalRead(4)==1)
         {
           
            i=10;
            digitalWrite(27,1); 
-         delay(150); 
+         delay(200); 
         digitalWrite(27, 0);
         } 
 
         
-   if(digitalRead(4)==1)
+   if(digitalRead(16)==1)
        {
           i=5;
            digitalWrite(27,1); 
-         delay(150); 
+         delay(200); 
         digitalWrite(27, 0);
         }
 
        
-      if(H<33&&i==5 )
+      if(H<=29&&i==5 )
           {
           digitalWrite(25, HIGH); 
           digitalWrite(32, 0);
@@ -416,10 +426,10 @@ EEPROM.begin(512);
           digitalWrite(33, 0); 
           digitalWrite(25, 0) ;
           }
-      if(H>=33&&i==5 )
+      if(H>29&&i==5 )
           {
           digitalWrite(27,1); 
-         delay(150); 
+         delay(200); 
         digitalWrite(27, 0);
             i=6;
           digitalWrite(26, 0); 
@@ -429,7 +439,7 @@ EEPROM.begin(512);
           }
 
           
-       if(tilt<66 && i==6)
+       if(tilt<=66 && i==6)
           {
          
           digitalWrite(26,1); 
@@ -442,11 +452,11 @@ EEPROM.begin(512);
           digitalWrite(33, 0); 
           digitalWrite(25, 0) ;
           }
-     if(i==6 && tilt>=66)
+     if(i==6 && tilt>66)
          {
          i=1;
          digitalWrite(27,1); 
-         delay(150); 
+         delay(200); 
          digitalWrite(27, 0);
            digitalWrite(26, 0); 
           digitalWrite(32, 0);
@@ -455,7 +465,7 @@ EEPROM.begin(512);
           }
 
 ///full dowwn
-      if(H>12&&i==10)
+      if(H>=4&&i==10)
           {
           digitalWrite(26, 0); 
           digitalWrite(32, 0);
@@ -467,10 +477,10 @@ EEPROM.begin(512);
           digitalWrite(33, 0); 
           digitalWrite(25, 0) ;
           }
-         if(H<=12&&i==10)
+         if(H<4&&i==10)
           {
             digitalWrite(27,1); 
-         delay(150); 
+         delay(200); 
          digitalWrite(27, 0);
            i=11;
            
@@ -480,7 +490,7 @@ EEPROM.begin(512);
           digitalWrite(25, 0) ;
           }
           
-        if(i==11&& tilt>(-18))
+        if(i==11&& tilt>=(-7))
           {
           digitalWrite(25,0); 
           digitalWrite(33,0);
@@ -493,7 +503,7 @@ EEPROM.begin(512);
           digitalWrite(25, 0) ;
           }
           
-        if(i==11&& tilt <=(-18))
+        if(i==11&& tilt <(-7))
           {
           digitalWrite(27,1); 
           delay(200); 
@@ -506,17 +516,10 @@ EEPROM.begin(512);
           digitalWrite(25, 0);
          
           }
-
-
-
-
-
-
-  
-   if(digitalRead(5)==1)
+   if(digitalRead(17)==1)
       {
           digitalWrite(27,1); 
-         delay(100); 
+         delay(200); 
         digitalWrite(27, 0);
      EEPROM.write(1,1);
           EEPROM.commit();  
@@ -524,14 +527,14 @@ EEPROM.begin(512);
          i=15;
         }
     
-    if(digitalRead(17)==1)
+    if(digitalRead(5)==1)
        { 
           digitalWrite(27,1); 
-         delay(80); 
+         delay(200); 
          digitalWrite(27, 0);
-        delay(100);
+        delay(200);
           digitalWrite(27,1); 
-         delay(80); 
+         delay(200); 
          digitalWrite(27, 0);
       
            EEPROM.write(1,2);
@@ -542,18 +545,18 @@ EEPROM.begin(512);
        
        }
       
- if(digitalRead(19)==1)
+ if(digitalRead(18)==1)
       { 
              digitalWrite(27,1); 
-         delay(80); 
+         delay(100); 
          digitalWrite(27, 0);
         delay(100);
           digitalWrite(27,1); 
-         delay(80); 
+         delay(100); 
          digitalWrite(27, 0);
          delay(100);
            digitalWrite(27,1); 
-         delay(80); 
+         delay(100); 
          digitalWrite(27, 0);
          
          EEPROM.write(1,3);
@@ -563,7 +566,7 @@ EEPROM.begin(512);
         
       }
 
-   if(digitalRead(18)==1&&EEPROM.read(1)==1)
+   if(digitalRead(19)==1&&EEPROM.read(1)==1)
          {    i=1;
              
                EEPROM.write(2,tilt);
@@ -574,23 +577,23 @@ EEPROM.begin(512);
                delay(100);
               digitalWrite(27, 0);
          }
-        if(digitalRead(18)==1&&EEPROM.read(1)==2)
+        if(digitalRead(19)==1&&EEPROM.read(1)==2)
          {    i=1;
                EEPROM.write(4,tilt);
                EEPROM.commit(); 
                EEPROM.write(5,H);
                EEPROM.commit(); 
                digitalWrite(27, 1);
-               delay(80);
+               delay(100);
                 digitalWrite(27, 0);
                 delay(100);
                 digitalWrite(27, 1);
-               delay(80);
+               delay(100);
                 digitalWrite(27, 0);
                 delay(100);
          }
          
-        if(digitalRead(18)==1&&EEPROM.read(1)==3)
+        if(digitalRead(19)==1&&EEPROM.read(1)==3)
          {    i=1;
                EEPROM.write(6,tilt);
                EEPROM.commit(); 
@@ -605,7 +608,7 @@ EEPROM.begin(512);
                 digitalWrite(27, 0);
                 delay(100);
                 digitalWrite(27, 1);
-              delay(80);
+              delay(100);
                 digitalWrite(27, 0);
                 delay(100);
          }
@@ -776,6 +779,6 @@ EEPROM.begin(512);
 }
 }
 
-void loop() {
-  
+
+void loop() {  
 }
