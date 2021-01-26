@@ -14,14 +14,9 @@ char mode1, mode2, mode3,j=0,goc;
 int pitch,roll;
 
 
-TaskHandle_t Task1;
-TaskHandle_t Task2;
-
-
 
 void setup() {
-
-   EEPROM.begin(512);
+     EEPROM.begin(512);
     Serial.begin(9600);
      Wire.begin();
      Wire.beginTransmission(MPU);
@@ -53,37 +48,14 @@ void setup() {
    pinMode(5, INPUT);
    pinMode(18, INPUT);
    pinMode(19, INPUT);
-   
-  //create a task that will be executed in the Task1code() function, with priority 1 and executed on core 0
-  xTaskCreatePinnedToCore(
-                    Task1code,   /* Task function. */
-                    "Task1",     /* name of task. */
-                    5000,       /* Stack size of task */
-                    NULL,        /* parameter of the task */
-                    1,           /* priority of the task */
-                    &Task1,      /* Task handle to keep track of created task */
-                    0);          /* pin task to core 0 */                  
- // delay(500); 
+    xTaskCreatePinnedToCore(Task2code, "Task1", 2000, NULL, 1, NULL, 0); 
+    
+    }
 
-  //create a task that will be executed in the Task2code() function, with priority 1 and executed on core 1
-  xTaskCreatePinnedToCore(
-                    Task2code,   /* Task function. */
-                    "Task2",     /* name of task. */
-                    12000,       /* Stack size of task */
-                    NULL,        /* parameter of the task */
-                    1,           /* priority of the task */
-                    &Task2,      /* Task handle to keep track of created task */
-                    1);          /* pin task to core 1 */
-///delay(500); 
-}
-
-
-//Task1code: blinks an LED every 1000 ms
-void Task1code( void * pvParameters ){
-//pinMode(2, OUTPUT);
-
-  for(;;){
-    VL53L0X_RangingMeasurementData_t measure;
+void Task2code( void * pvParameters ){
+  
+     for(;;){
+     VL53L0X_RangingMeasurementData_t measure;
       lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
  
       Serial.print("Distance (mm): ");
@@ -104,14 +76,12 @@ void Task1code( void * pvParameters ){
       Serial.println();
     delay(500);
   }
-  }
-//Task2code: blinks an LED every 700 ms
-void Task2code( void * pvParameters ){
-//  EEPROM.begin(1024);
 
-  for(;;){
-  
-    if(digitalRead(26)==1&&H<=29)
+}
+
+void loop() {
+ 
+     if(digitalRead(26)==1)
        {
         i=1;
          digitalWrite(33,0);
@@ -130,7 +100,7 @@ void Task2code( void * pvParameters ){
         }
 
   //down xl1
-    if(digitalRead(27)==1&&H>=4 )
+    if(digitalRead(27)==1 )
         {
           i=1;
          digitalWrite(33,1);
@@ -148,43 +118,10 @@ void Task2code( void * pvParameters ){
 
 
    
-    if(digitalRead(26)==1&&H>29)
-       {
-        i=1;
-         digitalWrite(32,0); 
-         digitalWrite(33,0); 
-         digitalWrite(25,0); 
-         digitalWrite(17,0);
-         digitalWrite(16,1);
-         delay(200);  
-         digitalWrite(32,0); 
-         digitalWrite(33,0); 
-         digitalWrite(25,0); 
-         digitalWrite(17,0);
-          digitalWrite(16,0);
-        }
-    //down xl1
-    if(digitalRead(27)==1&&H<4 )
-        {
-          i=1;
-          digitalWrite(32,0); 
-         digitalWrite(33,0); 
-         digitalWrite(25,0); 
-         digitalWrite(17,0);
-         digitalWrite(16,1);
-            
-          delay(200);  
-         digitalWrite(32,0); 
-         digitalWrite(33,0); 
-         digitalWrite(25,0); 
-         digitalWrite(17,0);
-         digitalWrite(16,0);
-
-        }
 
         
   //up xl2
-    if(digitalRead(14)==1  && tilt>=4  )
+    if(digitalRead(14)==1   )
         {
           i=1;
          digitalWrite(33,0);
@@ -202,7 +139,7 @@ void Task2code( void * pvParameters ){
    
         }
   //up xl2
-    if(digitalRead(12)==1&& tilt<=76   )
+    if(digitalRead(12)==1  )
         {
           i=1;
           digitalWrite(33,0);
@@ -219,46 +156,7 @@ void Task2code( void * pvParameters ){
  
    
         }
-     //up xl2
-    if(digitalRead(14)==1  && tilt<4  )
-        {
-          i=1;
-          digitalWrite(33,0);
-          digitalWrite(16,1);
-         digitalWrite(25,0);
-        digitalWrite(32,0);
-        digitalWrite(17,0);
-            
-         delay(200); 
-         
-         digitalWrite(32,0); 
-         digitalWrite(33,0); 
-         digitalWrite(25,0); 
-         digitalWrite(17,0);
-          digitalWrite(16,0);
- 
-   
-        }
-  //up xl2
-    if(digitalRead(12)==1&& tilt>76   )
-        {
-          i=1;
-          digitalWrite(33,0);
-         digitalWrite(25,0);
-        digitalWrite(32,0);
-        digitalWrite(17,0);
-        digitalWrite(16,1);
-            
-         delay(200); 
-         
-         digitalWrite(32,0); 
-         digitalWrite(33,0); 
-         digitalWrite(25,0); 
-         digitalWrite(17,0);
-         digitalWrite(16,0);
- 
-   
-        }
+    
  
  if(digitalRead(15)==1)
         {
@@ -373,7 +271,7 @@ void Task2code( void * pvParameters ){
          digitalWrite(32,0);
          digitalWrite(17,0);
          digitalWrite(16,1);
-         delay(150);
+         delay(200);
          digitalWrite(16,0);
            digitalWrite(33,0);
          digitalWrite(25,0);
@@ -388,60 +286,48 @@ void Task2code( void * pvParameters ){
 
    if(digitalRead(4)==1)
       {
-          EEPROM.write(1,1);
-            delay(10);
+          digitalWrite(16,1); 
+            EEPROM.write(1,1);
           EEPROM.commit();  
-          delay(10);
          i=15;
-         delay(10);
-          digitalWrite(16,1);
-         delay(150); 
+         delay(200); 
         digitalWrite(16, 0);
    
         }
     
     if(digitalRead(5)==1)
        { 
-         EEPROM.write(1,2);
-          delay(10);
+          digitalWrite(16,1); 
+         delay(200); 
+         digitalWrite(16, 0);
+        delay(200);
+          digitalWrite(16,1); 
+           EEPROM.write(1,2);
           EEPROM.commit();
-          delay(10);
           i=20;
-          delay(10);
-          digitalWrite(16,1); 
-         delay(150); 
+         delay(200); 
          digitalWrite(16, 0);
-        delay(150);
-          digitalWrite(16,1); 
-           delay(150); 
-         digitalWrite(16, 0);
-          
-      
          
        
        }
       
  if(digitalRead(18)==1)
       { 
-          EEPROM.write(1,3);
-           delay(10);
-          EEPROM.commit(); 
-          delay(10); 
-         i=25;
-         delay(10); 
         digitalWrite(16,1); 
-         delay(120); 
+         delay(200); 
          digitalWrite(16, 0);
-        delay(120);
+        delay(200);
           digitalWrite(16,1); 
-         delay(120); 
+         delay(200); 
          digitalWrite(16, 0);
-         delay(120);
-           digitalWrite(16,1);
-            delay(120); 
-         digitalWrite(16, 0); 
-         
-      
+         delay(200);
+           digitalWrite(16,1); 
+           EEPROM.write(1,3);
+          EEPROM.commit(); 
+            
+         i=25;;
+         delay(200); 
+         digitalWrite(16, 0);
         
         
       }
@@ -450,55 +336,47 @@ void Task2code( void * pvParameters ){
          {    i=1;
              
                EEPROM.write(2,tilt);
-               delay(10); 
                EEPROM.commit(); 
-               delay(10); 
                EEPROM.write(3, H);
                EEPROM.commit(); 
-               delay(10); 
                digitalWrite(16, 1);
-               delay(120);
+               delay(200);
               digitalWrite(16, 0);
          }
         if(digitalRead(19)==1&&EEPROM.read(1)==2)
          {    i=1;
                EEPROM.write(4,tilt);
-               delay(10); 
                EEPROM.commit(); 
-               delay(10); 
-               EEPROM.write(5, H);
+               EEPROM.write(5,H);
                EEPROM.commit(); 
-               delay(10); 
                digitalWrite(16, 1);
-               delay(120);
-              digitalWrite(16, 0);
-               delay(120);
-               digitalWrite(16, 1);
-               delay(120);
-              digitalWrite(16, 0);
+               delay(200);
+                digitalWrite(16, 0);
+                delay(200);
+                digitalWrite(16, 1);
+               delay(200);
+                digitalWrite(16, 0);
+                delay(200);
          }
          
         if(digitalRead(19)==1&&EEPROM.read(1)==3)
          {    i=1;
-                EEPROM.write(6,tilt);
-               delay(10); 
+               EEPROM.write(6,tilt);
                EEPROM.commit(); 
-               delay(10); 
                EEPROM.write(7, H);
                EEPROM.commit(); 
-               delay(10); 
                digitalWrite(16, 1);
-               delay(120);
-              digitalWrite(16, 0);
-              delay(120);
-               digitalWrite(16, 1);
-               delay(120);
-              digitalWrite(16, 0);
-              delay(120);
-               digitalWrite(16, 1);
-               delay(120);
-              digitalWrite(16, 0);
-            
+               delay(200);
+                digitalWrite(16, 0);
+                delay(200);
+                digitalWrite(16, 1);
+               delay(200);
+                digitalWrite(16, 0);
+                delay(200);
+                digitalWrite(16, 1);
+              delay(200);
+                digitalWrite(16, 0);
+                delay(200);
          }
 //LOCAL1
    
@@ -509,7 +387,7 @@ void Task2code( void * pvParameters ){
          digitalWrite(32,0);
          digitalWrite(17,0);
    
-          delay(120);
+          delay(100);
           }
      if(EEPROM.read(3)<H&&i==15)
           {
@@ -518,7 +396,7 @@ void Task2code( void * pvParameters ){
          digitalWrite(32,0);
          digitalWrite(17,0);
    
-          delay(120);
+          delay(100);
           }       
 
      if(EEPROM.read(3)==H&&i==15)
@@ -530,7 +408,7 @@ void Task2code( void * pvParameters ){
           digitalWrite(16,1);
           
           i=16;
-          delay(120);
+          delay(100);
           digitalWrite(16,0);
           }
           //TIT
@@ -541,7 +419,7 @@ void Task2code( void * pvParameters ){
          digitalWrite(25,0);
          digitalWrite(32,1);
          digitalWrite(17,0);
-          delay(120);
+          delay(100);
    
           }
     if(i==16&& tilt<EEPROM.read(2))
@@ -550,7 +428,7 @@ void Task2code( void * pvParameters ){
          digitalWrite(25,0);
          digitalWrite(32,0);
          digitalWrite(17,1);
-          delay(120);
+          delay(100);
    
           }
 
@@ -563,7 +441,7 @@ void Task2code( void * pvParameters ){
          digitalWrite(17,0);
          digitalWrite(16,1);
           i=1;
-          delay(120);
+          delay(200);
           digitalWrite(16,0);
        }
           
@@ -571,146 +449,126 @@ void Task2code( void * pvParameters ){
    //mode 2 local
 
 
-  if(EEPROM.read(5)>H&&i==20)
+    if(EEPROM.read(5)>H&&i==20)
           {
-           digitalWrite(33,0);
+         digitalWrite(33,0);
          digitalWrite(25,1);
          digitalWrite(32,0);
          digitalWrite(17,0);
-   
-          delay(120);
+          delay(100);
           }
-     if(EEPROM.read(5)<H&&i==20)
+      if(EEPROM.read(5)<H&&i==20)
           {
-           digitalWrite(33,1);
+         digitalWrite(33,1);
          digitalWrite(25,0);
          digitalWrite(32,0);
          digitalWrite(17,0);
-   
-          delay(120);
+          delay(100);
           }       
 
-     if(EEPROM.read(5)==H&&i==20)
+      if(EEPROM.read(5)==H&&i==20)
           {
-            digitalWrite(33,0);
+          digitalWrite(33,0);
+         digitalWrite(25,0);
+         digitalWrite(32,0);
+         digitalWrite(17,0);
+          i=21;
+          delay(150);
+          }   
+       if( tilt<EEPROM.read(4)&&i==21)
+          {
+           digitalWrite(33,0);
+         digitalWrite(25,0);
+         digitalWrite(32,0);
+         digitalWrite(17,1);  
+          delay(100);
+   
+          }
+      if(i==21&& tilt>EEPROM.read(4))
+          {
+           digitalWrite(33,0);
+         digitalWrite(25,0);
+         digitalWrite(32,1);
+         digitalWrite(17,0);
+          delay(100);
+   
+          }
+
+               
+      if(i==21 && tilt==EEPROM.read(4))
+       {
+           digitalWrite(33,0);
          digitalWrite(25,0);
          digitalWrite(32,0);
          digitalWrite(17,0);
           digitalWrite(16,1);
-          
-          i=16;
+          i=1;
           delay(200);
           digitalWrite(16,0);
-          }
-          //TIT
-    
- if( tilt>EEPROM.read(4)&&i==21)
-          {
-            digitalWrite(33,0);
-         digitalWrite(25,0);
-         digitalWrite(32,1);
-         digitalWrite(17,0);
-          delay(120);
-   
-          }
-    if(i==21&& tilt<EEPROM.read(4))
-          {
-             digitalWrite(33,0);
-         digitalWrite(25,0);
-         digitalWrite(32,0);
-         digitalWrite(17,1);
-          delay(120);
-   
-          }
-
-              
-     if(i==21&& tilt==EEPROM.read(4))
-       {
-             digitalWrite(33,0);
-         digitalWrite(25,0);
-         digitalWrite(32,0);
-         digitalWrite(17,0);
-         digitalWrite(16,1);
-          i=1;
-          delay(120);
-          digitalWrite(16,0);
        }
-          
-          
 
     //local mode 3
 
 
-
-  if(EEPROM.read(7)>H&&i==25)
+       if(EEPROM.read(7)>H&&i==25)
           {
-           digitalWrite(33,0);
+          digitalWrite(33,0);
          digitalWrite(25,1);
          digitalWrite(32,0);
          digitalWrite(17,0);
-   
-          delay(120);
+          delay(100);
           }
-     if(EEPROM.read(7)<H&&i==25)
+       if(EEPROM.read(7)<H&&i==25)
           {
-           digitalWrite(33,1);
+          digitalWrite(33,1);
          digitalWrite(25,0);
          digitalWrite(32,0);
          digitalWrite(17,0);
-   
-          delay(120);
+          delay(100);
           }       
 
-     if(EEPROM.read(7)==H&&i==25)
+        if(EEPROM.read(7)==H&&i==25)
           {
-            digitalWrite(33,0);
-         digitalWrite(25,0);
-         digitalWrite(32,0);
-         digitalWrite(17,0);
-          digitalWrite(16,1);
-          
-          i=16;
-          delay(120);
-          digitalWrite(16,0);
-          }
-          //TIT
-    
- if( tilt>EEPROM.read(6)&&i==26)
-          {
-            digitalWrite(33,0);
-         digitalWrite(25,0);
-         digitalWrite(32,1);
-         digitalWrite(17,0);
-          delay(120);
-   
-          }
-    if(i==26&& tilt<EEPROM.read(6))
-          {
-             digitalWrite(33,0);
-         digitalWrite(25,0);
-         digitalWrite(32,0);
-         digitalWrite(17,1);
-          delay(120);
-   
-          }
-
-              
-     if(i==26&& tilt==EEPROM.read(6))
-       {
-             digitalWrite(33,0);
+          digitalWrite(33,0);
          digitalWrite(25,0);
          digitalWrite(32,0);
          digitalWrite(17,0);
          digitalWrite(16,1);
+         
+          i=26;
+          delay(100);
+          digitalWrite(16,0);
+          }   
+        if( tilt<EEPROM.read(6)&&i==26)
+          {
+           digitalWrite(33,0);
+         digitalWrite(25,0);
+         digitalWrite(32,0);
+         digitalWrite(17,1);  
+          delay(100);
+   
+          }
+      if(i==26&& tilt>EEPROM.read(6))
+          {
+           digitalWrite(33,0);
+         digitalWrite(25,0);
+         digitalWrite(32,1);
+         digitalWrite(17,0);
+          delay(100);
+   
+          }
+
+               
+      if(i==26 && tilt==EEPROM.read(6))
+       {
+           digitalWrite(33,0);
+         digitalWrite(25,0);
+         digitalWrite(32,0);
+         digitalWrite(17,0);
+          digitalWrite(16,1);
           i=1;
           delay(200);
           digitalWrite(16,0);
        }
-          
-
-}
-}
-
-void loop() {
-  
-}
+     
+    }//code fulll mode
